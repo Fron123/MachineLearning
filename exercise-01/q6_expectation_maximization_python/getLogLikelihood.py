@@ -1,4 +1,6 @@
 import numpy as np
+
+
 def getLogLikelihood(means, weights, covariances, X):
     # Log Likelihood estimation
     #
@@ -14,9 +16,34 @@ def getLogLikelihood(means, weights, covariances, X):
     # OUTPUT:
     # logLikelihood  : log-likelihood
 
-    #####Insert your code here for subtask 6a#####
+    logLikelihood = 0
+    D = 2
+    N = len(X)
+    K = len(weights)
+
+    outer_sum = 0
+    for i in range(N):
+        inner_sum = 0
+        for k in range(K):
+            inner_sum += weights[k] * normal(X[i], means[k], covariances[:, :, k])
+        outer_sum += np.log2(inner_sum)
+
+    return outer_sum
 
 
+def normal(x_n, means, covariances):
+    sigma_x = np.sqrt(covariances[0, 0])
+    sigma_y = np.sqrt(covariances[1, 1])
+    correlation = covariances[1, 0]/(sigma_x * sigma_y)
+    x = x_n[0]
+    y = x_n[1]
+    mu_x = means[0]
+    mu_y = means[1]
 
-    return logLikelihood
+    prefactor = 1/(2 * np.pi * sigma_y * sigma_x * np.sqrt(1-(correlation ** 2)))
+    rest = np.exp(-(1/(2 * (1 - (correlation ** 2)))) *
+                  ((((x - mu_x)/sigma_x) ** 2) -
+                   (2 * correlation * ((x-mu_x) / sigma_x) * ((y-mu_y) / sigma_y)) +
+                   (((y - mu_y)/sigma_y) ** 2)))
+    return prefactor * rest
 

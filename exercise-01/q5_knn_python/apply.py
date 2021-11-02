@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 
 h, k = parameters()
 
+
 print('Question: Kernel/K-Nearest Neighborhood Density Estimators')
 
 # Produce the random samples
@@ -25,11 +26,11 @@ plt.plot(realDensity[:, 0], realDensity[:, 1], 'b', linewidth=1.5, label='Real D
 plt.legend()
 
 # Estimate the probability density using KNN
-# estDensity = knn(samples, k)
+estDensity = knn(samples, k)
 
 # Plot the distributions
-# plt.subplot(2, 1, 2)
-# plt.plot(estDensity[:, 0], estDensity[:, 1], 'r', linewidth=1.5, label='KNN Estimated Distribution')
-# plt.plot(realDensity[:, 0], realDensity[:, 1], 'b', linewidth=1.5, label='Real Distribution')
-# plt.legend()
+plt.subplot(2, 1, 2)
+plt.plot(estDensity[:, 0], estDensity[:, 1], 'r', linewidth=1.5, label='KNN Estimated Distribution')
+plt.plot(realDensity[:, 0], realDensity[:, 1], 'b', linewidth=1.5, label='Real Distribution')
+plt.legend()
 plt.show()
