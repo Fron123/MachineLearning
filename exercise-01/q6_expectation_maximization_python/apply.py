@@ -140,9 +140,10 @@ for idx in range(3):
     absweightdiff = abs(weights - testparams[1, idx])
     abscovdiff = abs(covariances - testparams[2, idx])
 
-    print('Sum of difference of means:       {0}\n'.format(np.sum(absmeandiff)))
-    print('Sum of difference of weights:     {0}\n'.format(np.sum(absweightdiff)))
-    print('Sum of difference of covariances: {0}\n'.format(np.sum(abscovdiff)))
+    print('Sum of difference of means:       {0}'.format(np.sum(absmeandiff)))
+    print('Sum of difference of weights:     {0}'.format(np.sum(absweightdiff)))
+    print('Sum of difference of covariances: {0}'.format(np.sum(abscovdiff)))
+    print()
 
 # test regularization
 print('\n')

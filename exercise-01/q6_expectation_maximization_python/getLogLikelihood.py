@@ -16,8 +16,8 @@ def getLogLikelihood(means, weights, covariances, X):
     # OUTPUT:
     # logLikelihood  : log-likelihood
 
-    logLikelihood = 0
-    D = 2
+    # logLikelihood = 0
+    # D = 2
     N = len(X)
     K = len(weights)
 
@@ -26,7 +26,7 @@ def getLogLikelihood(means, weights, covariances, X):
         inner_sum = 0
         for k in range(K):
             inner_sum += weights[k] * normal(X[i], means[k], covariances[:, :, k])
-        outer_sum += np.log2(inner_sum)
+        outer_sum += np.log(inner_sum)
 
     return outer_sum
 
@@ -34,16 +34,15 @@ def getLogLikelihood(means, weights, covariances, X):
 def normal(x_n, means, covariances):
     sigma_x = np.sqrt(covariances[0, 0])
     sigma_y = np.sqrt(covariances[1, 1])
-    correlation = covariances[1, 0]/(sigma_x * sigma_y)
+    cor = covariances[1, 0] / (sigma_x * sigma_y)
     x = x_n[0]
     y = x_n[1]
     mu_x = means[0]
     mu_y = means[1]
 
-    prefactor = 1/(2 * np.pi * sigma_y * sigma_x * np.sqrt(1-(correlation ** 2)))
-    rest = np.exp(-(1/(2 * (1 - (correlation ** 2)))) *
-                  ((((x - mu_x)/sigma_x) ** 2) -
-                   (2 * correlation * ((x-mu_x) / sigma_x) * ((y-mu_y) / sigma_y)) +
-                   (((y - mu_y)/sigma_y) ** 2)))
+    prefactor = 1 / (2 * np.pi * sigma_y * sigma_x * np.sqrt(1 - (cor ** 2)))
+    z = ((((x - mu_x) / sigma_x) ** 2) -
+         (2 * cor * ((x - mu_x) / sigma_x) * ((y - mu_y) / sigma_y)) +
+         (((y - mu_y) / sigma_y) ** 2))
+    rest = np.exp(-(z / (2 * (1 - (cor ** 2)))))
     return prefactor * rest
-
