@@ -10,6 +10,8 @@ from regularize_cov import regularize_cov
 from plotModes import plotModes
 from skinDetection import skinDetection
 
+import imageio
+
 epsilon, K, n_iter, skin_n_iter, skin_epsilon, skin_K, theta = parameters()
 
 
@@ -191,10 +193,9 @@ for k in range(num):
     # compute GMM
     weights, means, covariances = estGaussMixEM(data[2], k+1, n_iter, epsilon)
     logLikelihood[k] = getLogLikelihood(means, weights, covariances, data[2])
-
 # plot result
 plt.subplot()
-plt.plot(range(num),logLikelihood)
+plt.plot(range(num), logLikelihood)
 plt.title('Loglikelihood for different number of k on Data 3')
 plt.show()
 
@@ -204,9 +205,11 @@ print('(g) performing skin detection with GMMs')
 sdata = np.loadtxt('skin.dat')
 ndata = np.loadtxt('non-skin.dat')
 
-img = im2double(misc.imread('faces.png'))
+# img = im2double(misc.imread('faces.png'))
+img = im2double(imageio.imread('faces.png'))
 
 skin = skinDetection(ndata, sdata, skin_K, skin_n_iter, skin_epsilon, theta, img)
 plt.imshow(skin)
 plt.show()
-misc.imsave('skin_detection.png', skin)
+# misc.imsave('skin_detection.png', skin)
+imageio.imsave('skin_detection.png', skin)
