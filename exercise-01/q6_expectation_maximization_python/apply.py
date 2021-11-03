@@ -182,6 +182,7 @@ for idx in range(3):
     plt.subplot()
     plotModes(np.transpose(means), covariances, data[idx])
     plt.title('Data {0}'.format(idx+1))
+    # plt.savefig('Data {0}'.format(idx+1))
     plt.show()
 
 
@@ -197,6 +198,7 @@ for k in range(num):
 plt.subplot()
 plt.plot(range(num), logLikelihood)
 plt.title('Loglikelihood for different number of k on Data 3')
+plt.savefig('loglikelihood')
 plt.show()
 
 # skin detection
