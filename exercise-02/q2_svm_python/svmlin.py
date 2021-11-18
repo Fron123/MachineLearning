@@ -21,6 +21,9 @@ def svmlin(X, t, C):
     # result   : result of classification     (1 x num_samples)
     # slack    : points inside the margin (boolean)   (1 x num_samples)
 
+    print("X", X)
+    print("t", t)
+    print("C", C)
 
-    #####Insert your code here for subtask 2a#####
-    return alpha, sv, w, b, result, slack
+    pass
+    # return alpha, sv, w, b, result, slack

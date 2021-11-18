@@ -28,6 +28,6 @@ def leastSquares(data, label):
         sum2 += np.outer(x_i, y_i)  # x_i*y_i
 
     weight = np.dot(np.linalg.inv(sum1), sum2)
-    bias = 0
+    bias = (1/len(data)) * np.sum(np.dot(data, weight))
 
     return weight, bias
