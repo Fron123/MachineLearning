@@ -35,22 +35,19 @@ def svmlin(X, t, C):
         for m in range(N):
             H[n][m] = t[n] * t[m] * np.inner(X[n], X[m])
 
-    print(H)
-
     n = H.shape[1]
     LB = vec_0
     UB = vec_C
 
     q = cvxopt.matrix((-1) * np.ones(N))
     G = cvxopt.matrix(np.vstack([-np.eye(n), np.eye(n)]))
-    A = cvxopt.matrix(t)
-    b = cvxopt.matrix(0)
-    P = cvxopt.matrix(X)
+    A = cvxopt.matrix(t, (1, N), 'd')  # N columns
+    b = cvxopt.matrix(0, (1, 1), 'd')  # 1x1
+    P = cvxopt.matrix(H)
     h = cvxopt.matrix(np.hstack([-LB, UB]))
 
-    a = cvxopt.solvers.qp(H, q, G, h, A, b)
+    a = cvxopt.solvers.qp(P, q, G, h, A, b)
 
+    print(a)
 
-
-    pass
-    # return alpha, sv, w, b, result, slack
+    return a['x'], sv, w, b, result, slack
